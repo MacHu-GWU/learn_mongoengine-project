@@ -13,17 +13,34 @@ Ref: http://docs.mongoengine.org/guide/connecting.html#guide-connecting
 """
 
 import mongoengine
+from learn_mongoengine import config
 
-# Test database
-conn_test = mongoengine.connect(
-    db="test", alias="default",
-    username=None, password=None, host="localhost", port=27017,
-)
-conn_test.drop_database("test")
+# Use real MongoDB
+if not config.USE_MONGOMOCK:
+    # Test database
+    conn_test = mongoengine.connect(
+        db="test", alias="default",
+        username=None, password=None, host="localhost", port=27017,
+    )
+    conn_test.drop_database("test")
+    
+    # Dev database
+    conn_dev = mongoengine.connect(
+        db="dev", alias="dev",
+        username=None, password=None, host="localhost", port=27017,
+    )
+    conn_dev.drop_database("dev")
 
-# Dev database
-conn_dev = mongoengine.connect(
-    db="dev", alias="dev",
-    username=None, password=None, host="localhost", port=27017,
-)
-conn_dev.drop_database("dev")
+# Use mongomock
+else:
+    conn_test = mongoengine.connect(
+        db="test", alias="default", host="mongomock://localhost", 
+        dbpath=config.MONGOMOCK_DBPATH,
+    )
+    conn_test.drop_database("test")
+    
+    conn_test = mongoengine.connect(
+        db="dev", alias="dev", host="mongomock://localhost", 
+        dbpath=config.MONGOMOCK_DBPATH,
+    )
+    conn_test.drop_database("dev")
