@@ -32,7 +32,7 @@ How to use this project
 -----------------------
 1. Download and install it. 
    
-... code-block:: console
+.. code-block:: console
 
     ``cd <path-to-learn_mongoengine-project-directory>``
 	``pip install .``
