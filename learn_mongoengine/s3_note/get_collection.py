@@ -8,7 +8,8 @@ Use pymongo.collection.Collection
 如何从mongoengine的Schema中获得Collection和Database的实例的方法。
 """
 
-from learn_mongoengine.crud.p1_create import User
+from learn_mongoengine import run_if_is_main
+from learn_mongoengine.s2_crud.p1_create import User
 
 
 def get_collection_db():
@@ -22,6 +23,4 @@ def get_collection_db():
 
     test_db = User._get_db()  # Get pymongo.database.Database instance
 
-
-if __name__ == "__main__":
-    get_collection_db()
+get_collection_db()

@@ -12,10 +12,11 @@ Delete即删除。
   方法。等效于 ``collection.remove(query)``。
 """
 
-from learn_mongoengine.connect import mongoengine
+from learn_mongoengine import mongoengine, run_if_is_main
 from learn_mongoengine.s2_crud.p1_create import User
 
 
+@run_if_is_main(__name__)
 def delete_one_document():
     """两种delete文档的方法的例子。
     """
@@ -31,13 +32,10 @@ def delete_one_document():
     User.objects(id__gte=2).delete()
     assert User.objects.count() == 0
 
-
-if __name__ == "__main__":
-    """
-    """
-    delete_one_document()
+delete_one_document()
 
 
+@run_if_is_main(__name__)
 def remove_all_document():
     """Remove all document.
     """
@@ -48,21 +46,14 @@ def remove_all_document():
     User.objects.delete()
     assert User.objects.count() == 0
     
-
-if __name__ == "__main__":
-    """
-    """
-    remove_all_document()
+remove_all_document()
 
 
+@run_if_is_main(__name__)
 def drop_collection():
     """Drop collection.
     """
     # Drop Collection
     User.drop_collection()
     
-    
-if __name__ == "__main__":
-    """
-    """
-    drop_collection()
+drop_collection()

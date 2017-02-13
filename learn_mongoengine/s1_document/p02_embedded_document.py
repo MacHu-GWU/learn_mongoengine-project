@@ -10,7 +10,7 @@ Embedded document field是指field本身也需要ORM, 而不仅仅是作为一�
 请注意Embedded Document和Reference Document之间的区别。
 """
 
-from learn_mongoengine import mongoengine
+from learn_mongoengine import mongoengine, run_if_is_main
 
 
 class User(mongoengine.EmbeddedDocument):
@@ -31,6 +31,7 @@ class Post(mongoengine.Document):
 Post.objects.delete()
 
 
+@run_if_is_main(__name__)
 def test_embedded_document():
     """
     """
@@ -59,8 +60,4 @@ def test_embedded_document():
         ],
     }
 
-
-if __name__ == "__main__":
-    """
-    """
-    test_embedded_document()
+test_embedded_document()

@@ -5,7 +5,7 @@
 Create即创建新文档, 在MongoDB中叫Insert。
 """
 
-from learn_mongoengine import mongoengine
+from learn_mongoengine import mongoengine, run_if_is_main
 
 
 class User(mongoengine.Document):
@@ -22,6 +22,7 @@ class User(mongoengine.Document):
 User.objects.delete()
 
 
+@run_if_is_main(__name__)
 def basic_insert():
     """一次插入一条文档。
     
@@ -31,14 +32,11 @@ def basic_insert():
     
     user = User.objects(id=1).get()
     assert user.name == "Jack"
+
+basic_insert()
     
     
-if __name__ == "__main__":
-    """
-    """
-    basic_insert()
-    
-    
+@run_if_is_main(__name__)
 def bulk_insert():
     """一次性插入多条文档。
     """
@@ -48,9 +46,5 @@ def bulk_insert():
     assert user.name == "Tom"
     user = User.objects(id=3).get()
     assert user.name == "Paul"
-    
-        
-if __name__ == "__main__":
-    """
-    """
-    bulk_insert()
+            
+bulk_insert()

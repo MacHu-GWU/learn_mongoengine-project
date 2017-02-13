@@ -7,5 +7,7 @@ __license__ = "MIT"
 
 try:
     from .connect import mongoengine
+    from .pkg.decorator import run_if_is_main
 except:
-    from learn_mongoengine import mongoengine
+    from learn_mongoengine.connect import mongoengine
+    from learn_mongoengine.pkg.decorator import run_if_is_main

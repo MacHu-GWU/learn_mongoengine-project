@@ -7,6 +7,8 @@
 .. image:: https://img.shields.io/badge/Tags-ORM-brightgreen.svg
 	:target: https://en.wikipedia.org/wiki/Object-relational_mapping
 
+.. image:: https://img.shields.io/badge/Tags-PY2_PY3-brightgreen.svg
+
 
 Learn MongoEngine - MongoDB Backed ORM
 ======================================
@@ -17,7 +19,7 @@ This is MongoEngine hands on skills guide with example.
 - `HomePage <http://mongoengine.org/>`_
 - `Document <http://docs.mongoengine.org/>`_
 
-Hot Link:
+Links:
 
 - `Defining Documents <http://docs.mongoengine.org/guide/defining-documents.html>`_
 - `Fields <http://docs.mongoengine.org/guide/defining-documents.html#fields>`_
@@ -26,8 +28,13 @@ Hot Link:
 - `QuerySet API <http://docs.mongoengine.org/apireference.html#module-mongoengine.queryset>`_
 
 
-Learn Project Guide
--------------------
-1. 每个模块(Module)都是可以被以主模块运行的。
-2. 每个模块被运行的时候都具有成单元测试的风格。
-3. 可以用pytest批量运行所有模块, 或是某个文件夹(Package)下的所有模块。
+How to use this project
+-----------------------
+1. Download and install it. 
+   
+... code-block:: console
+
+    ``cd <path-to-learn_mongoengine-project-directory>``
+	``pip install .``
+
+2. Execute each file as main script. Read description and study the input/output.

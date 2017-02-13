@@ -17,7 +17,7 @@ Reference和Embedded Document不同的是, Embedded直接将子类以文档的�
 Ref: http://docs.mongoengine.org/guide/defining-documents.html?#reference-fields
 """
 
-from learn_mongoengine import mongoengine
+from learn_mongoengine import mongoengine, run_if_is_main
 
 
 def reset_before_and_after(func):
@@ -44,6 +44,7 @@ class Post(mongoengine.Document):
 
 
 @reset_before_and_after
+@run_if_is_main(__name__)
 def test_reference_field():
     """
     """
@@ -57,11 +58,7 @@ def test_reference_field():
     post = Post.objects.first()
     assert post.author.user_id == 1
     
-
-if __name__ == "__main__":
-    """
-    """
-    test_reference_field()
+test_reference_field()
     
 
 #--- test_one_to_many_with_reference_field ---
@@ -76,6 +73,7 @@ class Post(mongoengine.Document):
     
     
 @reset_before_and_after
+@run_if_is_main(__name__)
 def test_one_to_many_with_reference_field():
     jack = User(user_id=1, name="Jack").save()
     tom = User(user_id=2, name="Tom").save()
@@ -102,12 +100,7 @@ def test_one_to_many_with_reference_field():
         post = Post.objects(post_id=post_id).get()
         assert len(post.authors) == expected_n_authors
        
-    
-
-if __name__ == "__main__":
-    """
-    """
-    test_one_to_many_with_reference_field()
+test_one_to_many_with_reference_field()
     
     
 #--- Dealing with deletion of referred documents ---

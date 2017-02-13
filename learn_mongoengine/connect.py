@@ -12,6 +12,7 @@ mongoengine.connect方法实际上是为多个数据的连接建立一个连接�
 Ref: http://docs.mongoengine.org/guide/connecting.html#guide-connecting
 """
 
+import warnings
 import mongoengine
 from learn_mongoengine import config
 
@@ -33,6 +34,7 @@ if not config.USE_MONGOMOCK:
 
 # Use mongomock
 else:
+    warnings.warn("You are using mongomock with mongoengine, some function may fail!")
     conn_test = mongoengine.connect(
         db="test", alias="default", host="mongomock://localhost", 
         dbpath=config.MONGOMOCK_DBPATH,

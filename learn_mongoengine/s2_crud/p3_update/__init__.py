@@ -5,10 +5,11 @@
 Update即更新。
 """
 
-from learn_mongoengine import mongoengine
+from learn_mongoengine import mongoengine, run_if_is_main
 from learn_mongoengine.s2_crud.p1_create import User
 
 
+@run_if_is_main(__name__)
 def not_atomic_update():
     """第一种常用的update操作是直接获取多个实例, 然后对实例进行修改之后, 调用
     ``.save()`` 方法。这种做法实际上是删除了数据库中的实例, 然后插入一个新的实例。
@@ -28,13 +29,10 @@ def not_atomic_update():
     
     assert User.objects(id=1).get()["name"] == "Mike"
 
-
-if __name__ == "__main__":
-    """
-    """
-    not_atomic_update()
+not_atomic_update()
     
 
+@run_if_is_main(__name__)
 def atomic_update():
     """第二种方法是社区所推荐的方法, 能保证原子性。
     """
@@ -49,8 +47,4 @@ def atomic_update():
     assert User.objects(id=2).get().name == "Mike"
     assert User.objects(id=3).get().name == "Mike"
 
-
-if __name__ == "__main__":
-    """
-    """
-    atomic_update()
+atomic_update()

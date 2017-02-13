@@ -8,11 +8,11 @@ How to convert mongoengine.Document to generic python types?
 2. query it using pymongo.Collection.
 """
 
-import pytest
-from learn_mongoengine.p01_connect import mongoengine
-from learn_mongoengine.crud.p1_create import User
+from learn_mongoengine import mongoengine, run_if_is_main
+from learn_mongoengine.s2_crud.p1_create import User
 
 
+@run_if_is_main(__name__)
 def to_keys_values_bson_dict_json():
     """Convert Document to generic python types.
     """
@@ -37,6 +37,4 @@ def to_keys_values_bson_dict_json():
     # to json
     assert user.to_json() == '{"_id": 1, "name": "Jack"}'
 
-
-if __name__ == "__main__":
-    to_keys_values_bson_dict_json()
+to_keys_values_bson_dict_json()

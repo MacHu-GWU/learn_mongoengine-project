@@ -8,7 +8,7 @@ Ref: http://docs.mongoengine.org/guide/document-instances.html#pre-save-data-val
 """
 
 from datetime import datetime
-from learn_mongoengine import mongoengine
+from learn_mongoengine import mongoengine, run_if_is_main
 
 
 class Essay(mongoengine.Document):
@@ -27,7 +27,8 @@ class Essay(mongoengine.Document):
             self.pub_date = datetime.now()
 
 
-if __name__ == "__main__":
+@run_if_is_main(__name__)
+def test():
     try:
         essay = Essay(status="Draft", pub_date=datetime.now())
         essay.save()
@@ -39,3 +40,5 @@ if __name__ == "__main__":
     assert essay.pub_date is None
     essay.save()
     assert essay.pub_date is not None
+    
+test()

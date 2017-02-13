@@ -13,7 +13,7 @@ embedded document field。
 Ref: http://docs.mongoengine.org/guide/defining-documents.html?highlight=index#dictionary-fields
 """
 
-from learn_mongoengine import mongoengine
+from learn_mongoengine import mongoengine, run_if_is_main
 
 
 class Person(mongoengine.Document):
@@ -24,6 +24,7 @@ class Person(mongoengine.Document):
 Person.objects.delete()
 
 
+@run_if_is_main(__name__)
 def test_dict_field():
     """
     """
@@ -33,8 +34,4 @@ def test_dict_field():
     person = Person.objects.first()
     assert isinstance(person.profile, dict) # is a dictionary
     
-    
-if __name__ == "__main__":
-    """
-    """
-    test_dict_field()
+test_dict_field()

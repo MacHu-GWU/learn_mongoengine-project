@@ -13,7 +13,7 @@ Ref: http://docs.mongoengine.org/guide/querying.html
 
 import pytest
 from datetime import datetime
-from learn_mongoengine import mongoengine
+from learn_mongoengine import mongoengine, run_if_is_main, config
 from mongoengine.errors import DoesNotExist
 
 
@@ -32,20 +32,26 @@ class Post(mongoengine.Document):
     meta = {"db_alias": "default", "collection": "post"}
 
 
-def basic_query():
+@run_if_is_main(__name__)
+def insert_testdata():    
     post = Post(
         id=1,
         title="Hello World!",
         author=User(id=1, name="Jack"),
         create_time=datetime(2002, 9, 11, 8, 30, 0),
-        tags=["New User", "Student", "Room Rental"]
+        tags=["New User", "Student", "Room Rental", "Make Friend"]
     )
     post.save()
+    
+insert_testdata()
 
+
+@run_if_is_main(__name__)
+def basic_query():
     #--- all documents ---
-    assert len(Post.objects) == 1
-    assert len(Post.objects[:]) == 1
-    assert list(Post.objects()) == [post,]
+    assert len(Post.objects()) == 1
+    assert len(Post.objects().all()) == 1
+    assert len(list(Post.objects())) == 1
 
     #--- embedded document ---
     # use field1__field2 represent field1.field2
@@ -85,13 +91,10 @@ def basic_query():
     # iendswith
     assert Post.objects(title__iendswith="WORLD!").get().id == 1
 
-
-if __name__ == "__main__":
-    """
-    """
-    basic_query()
+basic_query()
     
     
+@run_if_is_main(__name__)
 def querying_lists():
     """
     
@@ -99,16 +102,14 @@ def querying_lists():
     """
     assert Post.objects(tags__1="Student").get().id == 1
     
-    post = Post.objects.fields(slice__tags=[1, 2]).get()
-    assert post.tags == ["Student", "Room Rental"]
+    if not config.USE_MONGOMOCK:
+        post = Post.objects.fields(slice__tags=[2, 3]).first()
+        assert post.tags == ["Room Rental", "Make Friend"]
+    
+querying_lists()
     
 
-if __name__ == "__main__":
-    """
-    """
-    querying_lists()
-    
-    
+@run_if_is_main(__name__)
 def raw_query():
     """有的时候过于复杂的query我们无法用mongoengine的Query API来表达, 这时候我们
     可以用原生的MongoDB Query API进行查询, 但是自动将返回的文档转化为对象。
@@ -123,8 +124,4 @@ def raw_query():
     }
     assert Post.objects(__raw__=filters).get().id == 1
 
-
-if __name__ == "__main__":
-    """
-    """
-    raw_query()
+raw_query()
