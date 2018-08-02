@@ -12,7 +12,7 @@
 
 Learn MongoEngine - MongoDB Backed ORM
 ======================================
-This is MongoEngine hands on skills guide with example.
+This is my personal note in learning Mongoengine.
 
 `MongoEngine <http://mongoengine.org/>`_ is a Document-Object Mapper (think ORM, but for document databases) for working with MongoDB from Python.
 
@@ -30,11 +30,12 @@ Links:
 
 How to use this project
 -----------------------
-1. Download and install it. 
+Download the source code, and extract..
    
 .. code-block:: console
 
-    ``cd <path-to-learn_mongoengine-project-directory>``
-	``pip install .``
+    cd <path-to-learn_mongoengine-project-directory>
+    make up # create a virtualenv for this project
+    make test # run all code example
 
-2. Execute each file as main script. Read description and study the input/output.
+Then, execute each test file as main script. Read description and study the input/output.
